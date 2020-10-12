@@ -1,11 +1,10 @@
 import React from "react";
-import TestApi from "./TestApi";
-import PexelsApi from "./PexelsApi";
+// import TestApi from "./TestApi";
+// import PexelsApi from "./PexelsApi";
+import { SearchDropDown } from "./SearchBar";
 
 function App() {
-  return (
-      <PexelsApi />
-  );
+  return <SearchDropDown />;
 }
 
 export default App;

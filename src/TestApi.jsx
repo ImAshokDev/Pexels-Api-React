@@ -7,6 +7,8 @@ export default function TestApi() {
 
   const getData = (name) => {
     console.log("name", name);
+
+    
     fetch(`https://jsonplaceholder.typicode.com/${name}`)
       .then((res) => res.json())
       .then((d) => {
