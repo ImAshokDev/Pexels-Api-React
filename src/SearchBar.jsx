@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import "./App.css";
 
 export const SearchDropDown = () => {
   const [search, setSearch] = useState("");
   const [countryListDefault, setCountryListDefault] = useState();
   const [countryList, setCountryList] = useState();
+  const [open, setOpen] = useState(false);
 
   const fetchData = () => {
     fetch("https://restcountries.eu/rest/v2/all")
@@ -20,6 +22,7 @@ export const SearchDropDown = () => {
   }, []);
 
   const onChange = (e) => {
+    setOpen(!open);
     setSearch(e.target.value);
     const result = countryListDefault.filter((country) => {
       return country.name.toLowerCase().includes(e.target.value.toLowerCase());
@@ -29,20 +32,41 @@ export const SearchDropDown = () => {
     console.log("searc", result);
   };
 
+  const openFunc = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className="search">
       {search && search}
 
-      <input type="text" value={search} onChange={onChange} />
-      {countryList && (
+      <div className="inputBlock">
+        <input
+          type="text"
+          value={search}
+          onChange={onChange}
+          onClick={openFunc}
+          placeholder="select country"
+        />
+      </div>
+
+      {open ? (
         <div>
-          {countryList.map((data, index) => (
-            <div key={index}>
-              <p>{data.name}</p>
+          {countryList && (
+            <div className="dropBlock">
+              {countryList.map((data, index) => (
+                <p
+                  value={data.name}
+                  onClick={() => setSearch(data.name)}
+                  className="option"
+                >
+                  {data.name}
+                </p>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
